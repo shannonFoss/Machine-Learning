@@ -47,13 +47,7 @@ void make64Grey(int x,int y){
 	tempb=(int)b[x][y];
 	greyVal = (tempr+tempg+tempb)/3;
 	rem = greyVal %4;
-	if (rem ==3){
-		greyVal=greyVal-3;
-	}else if(rem == 2){
-		greyVal= greyVal-2;
-	}else if(rem==1){
-		greyVal= greyVal-1;
-	}
+	greyVal= greyVal-rem;
 	rgrey[x][y]=(unsigned char)greyVal;
 	ggrey[x][y]=(unsigned char)greyVal;
 	bgrey[x][y]=(unsigned char)greyVal;
@@ -67,21 +61,7 @@ void make32Grey(int x,int y){
 	tempb=(int)b[x][y];
 	greyVal = (tempr+tempg+tempb)/3;
 	rem = greyVal %8;
-	if (rem ==7){
-		greyVal=greyVal-7;
-	}else if(rem == 6){
-		greyVal= greyVal-6;
-	}else if(rem==5){
-		greyVal= greyVal-5;
-	}else if(rem ==4){
-		greyVal=greyVal-4;
-	}else if(rem == 3){
-		greyVal= greyVal-3;
-	}else if(rem==2){
-		greyVal= greyVal-2;
-	}else if(rem==1){
-		greyVal=greyVal-1;
-	}
+	greyVal=greyVal-rem;
 	rgrey[x][y]=(unsigned char)greyVal;
 	ggrey[x][y]=(unsigned char)greyVal;
 	bgrey[x][y]=(unsigned char)greyVal;
@@ -95,37 +75,7 @@ void make16Grey(int x,int y){
 	tempb=(int)b[x][y];
 	greyVal = (tempr+tempg+tempb)/3;
 	rem = greyVal %16;
-	if (rem ==15){
-		greyVal=greyVal-15;
-	}else if(rem == 14){
-		greyVal= greyVal-14;
-	}else if(rem==13){
-		greyVal= greyVal-13;
-	}else if(rem ==12){
-		greyVal=greyVal-12;
-	}else if(rem == 11){
-		greyVal= greyVal-11;
-	}else if(rem==10){
-		greyVal= greyVal-10;
-	}else if(rem==9){
-		greyVal=greyVal-9;
-	}else if(rem ==8){
-		greyVal=greyVal-8;
-	}else if(rem ==7){
-		greyVal=greyVal-7;
-	}else if(rem == 6){
-		greyVal= greyVal-6;
-	}else if(rem==5){
-		greyVal= greyVal-5;
-	}else if(rem ==4){
-		greyVal=greyVal-4;
-	}else if(rem == 3){
-		greyVal= greyVal-3;
-	}else if(rem==2){
-		greyVal= greyVal-2;
-	}else if(rem==1){
-		greyVal=greyVal-1;
-	}
+	greyVal=greyVal-rem;
 	rgrey[x][y]=(unsigned char)greyVal;
 	ggrey[x][y]=(unsigned char)greyVal;
 	bgrey[x][y]=(unsigned char)greyVal;
@@ -289,7 +239,7 @@ int main(){
 	int grow=0;
 
 	ifstream fin;
-	fin.open("C:\\Documents and Settings\\Shannon Foss\\My Documents\\Visual Studio Projects\\bmpReader2\\inputPics\\flowers.bmp", ios::binary);
+	fin.open("flowers.bmp", ios::binary);
 	for(int k=0; k<54;k++){//read in header
 		h[k]=fin.get();
 	}
@@ -306,7 +256,7 @@ int main(){
 	cout<<endl;
 
 	fin.close();
-	ofstream fout("C:\\Documents and Settings\\Shannon Foss\\My Documents\\Visual Studio Projects\\bmpReader2\\outputPics\\flowers_grey.bmp", ios::binary);
+	ofstream fout("flowers_grey.bmp", ios::binary);
 	for(i=0;i<54;i++)
 		fout<<h[i];
 
@@ -327,8 +277,8 @@ int main(){
 	fout.close();
 
 	//histogram
-	ofstream foutE("C:\\Documents and Settings\\Shannon Foss\\My Documents\\Visual Studio Projects\\bmpReader2\\outputPics\\flowers_equalhisto.bmp", ios::binary);
-	ofstream foutH("C:\\Documents and Settings\\Shannon Foss\\My Documents\\Visual Studio Projects\\bmpReader2\\outputPics\\flowers_histograms.bmp", ios::binary);
+	ofstream foutE("flowers_equalhisto.bmp", ios::binary);
+	ofstream foutH("flowers_histograms.bmp", ios::binary);
 	for(i=0;i<54;i++)
 		foutE<<h[i];
 	//393270 =60036
@@ -437,7 +387,7 @@ int main(){
 		foutH.close();
 		foutE.close();
 
-	ofstream fout2("C:\\Documents and Settings\\Shannon Foss\\My Documents\\Visual Studio Projects\\bmpReader2\\outputPics\\flowers_spatial.bmp", ios::binary);
+	ofstream fout2("flowers_spatial.bmp", ios::binary);
 	fillHeader(h);
 
 	for(i=0;i<54;i++)
